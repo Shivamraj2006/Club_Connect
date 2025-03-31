@@ -6,6 +6,7 @@ import {
   deleteBlog,
   likeBlog,
   commentBlog,
+  blogInteractions
 } from "../controllers/blogController.js";
 import { authenticateLogin } from "../middlewares/authenticateLogin.js";
 
@@ -20,5 +21,7 @@ router.delete("/:id", authenticateLogin, deleteBlog);
 // Like and Comment routes
 router.post("/like/:blogId", authenticateLogin, likeBlog);
 router.post("/comment/:blogId", authenticateLogin, commentBlog);
+// router.get('/blog-interactions', blogInteractions);
+router.get('/blog-interactions', authenticateLogin, blogInteractions);
 
 export default router;

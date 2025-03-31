@@ -5,6 +5,10 @@ import {
   register,
   login,
   resetPassword,
+  newuserCreated,
+  savedPosts,
+  likedPosts,
+  addComment,
 } from "../controllers/userController.js";
 import { authenticateLogin } from "../middlewares/authenticateLogin.js";
 
@@ -15,5 +19,9 @@ router.get("/myblogs", authenticateLogin, myblogs);
 router.post("/register", register);
 router.post("/login", login);
 router.post("/resetPassword", resetPassword);
+router.post('/clerk-webhook', newuserCreated);
+router.post('/save-post', savedPosts);
+router.post('/like-post', likedPosts);
+router.post('/add-comment',addComment );
 
 export default router;

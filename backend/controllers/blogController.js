@@ -156,3 +156,21 @@ export const adminDelete = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+const blogInteractions =  async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId)
+      .populate('savedPosts')
+      .populate('likedPosts')
+      .populate('commentedPosts');
+    
+    res.json({
+      savedPosts: user.savedPosts,
+      likedPosts: user.likedPosts,
+      commentedPosts: user.commentedPosts
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

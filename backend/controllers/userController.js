@@ -150,4 +150,75 @@ const myblogs = (req, res) => {
   });
 };
 
-export { getUserInfo, register, login, resetPassword, myblogs };
+
+const newuserCreated = async (req, res) => {
+  const event = req.body;
+  if (event.type === 'user.created' || event.type === 'user.updated') {
+    await User.upsert({
+      clerk_id: event.data.id,
+      email: event.data.email_addresses[0].email_address,
+      name: `${event.data.first_name} ${event.data.last_name}`,
+      image_url: event.data.image_url
+    });
+  }
+  
+  res.status(200).end();
+};
+
+const savedPosts = async (req, res) => {
+  try {
+    const { postId, action } = req.body;
+    const userId = req.user.id;
+    
+    const update = action === 'save' 
+      ? { $addToSet: { savedPosts: postId } }
+      : { $pull: { savedPosts: postId } };
+    
+    await User.findByIdAndUpdate(userId, update);
+    res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const likedPosts =  async (req, res) => {
+  try {
+    const { postId, action } = req.body;
+    const userId = req.user.id;
+    
+    const update = action === 'like' 
+      ? { $addToSet: { likedPosts: postId } }
+      : { $pull: { likedPosts: postId } };
+    
+    await User.findByIdAndUpdate(userId, update);
+    
+    // Also update the post's like count
+    const postUpdate = action === 'like' 
+      ? { $inc: { likes: 1 } }
+      : { $inc: { likes: -1 } };
+    
+    await Post.findByIdAndUpdate(postId, postUpdate);
+    
+    res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const addComment = async (req, res) => {
+  try {
+    const { postId } = req.body;
+    const userId = req.user.id;
+    
+    await User.findByIdAndUpdate(userId, {
+      $addToSet: { commentedPosts: postId }
+    });
+    
+    res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+export { getUserInfo, register, login, resetPassword, myblogs , newuserCreated,savedPosts , likedPosts , addComment};

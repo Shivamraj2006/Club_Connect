@@ -4,8 +4,8 @@ const Header = () => {
   return (
     <div className="my-4 flex items-center justify-center flex-col">
       <div className="text-4xl flex-col bg-zinc-100 w-full items-start">
-        <h1 className="font-bold">Welcome to CLub Connect</h1>
-        <h2>Share your College Experiences</h2>
+        <h1 className="font-bold text-center">Welcome to CLub Connect</h1>
+        <h2 className="text-center"> Share your College Experiences</h2>
       </div>
 
       <div className="my-8 flex flex-col md:flex-row items-center justify-between gap-8">
