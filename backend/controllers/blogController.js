@@ -157,7 +157,7 @@ export const adminDelete = async (req, res) => {
   }
 };
 
-const blogInteractions =  async (req, res) => {
+export const blogInteractions =  async (req, res) => {
   try {
     const userId = req.user.id;
     const user = await User.findById(userId)
