@@ -8,6 +8,8 @@ import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import clubRoutes from "./routes/clubRoutes.js";
+import clubAdminRoutes from "./routes/clubAdminRoutes.js";
 
 dotenv.config();
 
@@ -32,6 +34,8 @@ app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/blog", blogRoutes);
 app.use("/comment", commentRoutes);
+app.use("/clubs", clubRoutes);
+app.use("/clubAdmin", clubAdminRoutes);
 
 // Server
 const PORT = process.env.PORT || 5000;

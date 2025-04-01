@@ -76,32 +76,32 @@ export const likeBlog = async (req, res) => {
 };
 
 // Comment on a blog
-export const commentBlog = async (req, res) => {
-  try {
-    const blogId = req.params.blogId;
-    const { comment } = req.body;
-    const userId = req.user._id;
-    const username = req.user.username;
+// export const commentBlog = async (req, res) => {
+//   try {
+//     const blogId = req.params.blogId;
+//     const { comment } = req.body;
+//     const userId = req.user._id;
+//     const username = req.user.username;
 
-    const blog = await Blog.findById(blogId);
-    if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
-    }
+//     const blog = await Blog.findById(blogId);
+//     if (!blog) {
+//       return res.status(404).json({ message: "Blog not found" });
+//     }
 
-    const newComment = {
-      userId,
-      username,
-      comment,
-    };
+//     const newComment = {
+//       userId,
+//       username,
+//       comment,
+//     };
 
-    blog.comments.push(newComment);
-    await blog.save();
+//     blog.comments.push(newComment);
+//     await blog.save();
 
-    res.status(200).json({ message: "Comment added", comments: blog.comments });
-  } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
+//     res.status(200).json({ message: "Comment added", comments: blog.comments });
+//   } catch (error) {
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// };
 
 export const pending = async (req, res) => {
   try {
