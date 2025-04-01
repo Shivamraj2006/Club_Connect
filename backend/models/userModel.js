@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
   enrollment: String,
   username: String,
   password: String,
+  likedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }], 
 });
+
 
 const User = mongoose.model("User", userSchema);
 
