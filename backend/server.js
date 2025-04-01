@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
 app.use("/blog", blogRoutes);
+app.use("/comment", commentRoutes);
 
 // Server
 const PORT = process.env.PORT || 5000;
