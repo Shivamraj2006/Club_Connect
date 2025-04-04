@@ -122,7 +122,6 @@
 // };
 
 // export default Navbar;
-
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { VscThreeBars } from "react-icons/vsc";
@@ -149,18 +148,19 @@ const Navbar = ({ logined, isOpen, setIsOpen }) => {
 
   const links = [
     { name: "Home", to: "/" },
+    { name: "Clubs", to: "/clubs" },
     { name: "Profile", to: "/profile" },
     { name: "All Blogs", to: "/all-blogs" },
   ];
 
-  const clubsList = [
-    { name: "ACM", to: "/clubs/acm" },
-    { name: "IDS", to: "/clubs/ids" },
-    { name: "IVEE", to: "/clubs/ivee" },
-    { name: "AXIS", to: "/clubs/axis" },
-    { name: "AAC", to: "/clubs/aac" },
-    { name: "Mag.Com", to: "/clubs/mag" },
-  ];
+  // const clubsList = [
+  //   { name: "ACM", to: "/clubs/acm" },
+  //   { name: "IDS", to: "/clubs/ids" },
+  //   { name: "IVEE", to: "/clubs/ivee" },
+  //   { name: "AXIS", to: "/clubs/axis" },
+  //   { name: "AAC", to: "/clubs/aac" },
+  //   { name: "Mag.Com", to: "/clubs/mag" },
+  // ];
 
   return (
     <>
@@ -206,84 +206,6 @@ const Navbar = ({ logined, isOpen, setIsOpen }) => {
               </Link>
             )}
 
-            <div className="relative">
-              <button
-                onClick={() => setShowClubs(!showClubs)}
-                className="flex items-center px-3 py-2 text-gray-700 hover:text-gray-900"
-              >
-                Clubs
-                <svg
-                  className={`ml-1 h-4 w-4 transition-transform ${
-                    showClubs ? "rotate-180" : ""
-                  }`}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
-
-
-              {/* {showClubs && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                  {clubsList.map((item, i) => (
-                    <Link
-                      to={item.to}
-                      key={i}
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setShowClubs(false);
-                      }}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )} */}
-                            {showClubs && (
-                <div className="ml-4 mt-1 space-y-1">
-                  {loading ? (
-                    // <div className="p-2 text-gray-500">Loading clubs...</div>
-                    // when no clubs are found i am taking from the list i created
-                    clubsList.map((club) => (
-                      <Link
-                        to={club.to} // Assuming club has a slug field
-                        key={club.id}
-                        className="block p-2 hover:bg-gray-100 rounded transition-all"
-                        onClick={() => {
-                          setIsOpen(false);
-                          setShowClubs(false);
-                        }}
-                      >
-                        {club.name}
-                      </Link>
-                    ))
-                  ) : error ? (
-                    <div className="p-2 text-red-500">Error loading clubs</div>
-                  ) : (
-                    clubs.map((club) => (
-                      <Link
-                        to={`/clubs/${club.slug}`} // Assuming club has a slug field
-                        key={club.id}
-                        className="block p-2 hover:bg-gray-100 rounded transition-all"
-                        onClick={() => {
-                          setIsOpen(false);
-                          setShowClubs(false);
-                        }}
-                      >
-                        {club.name}
-                      </Link>
-                    ))
-                  )}
-                  </div>
-              )}
-            </div>
           </div>
 
           <div className="mt-auto space-y-4 pb-8">

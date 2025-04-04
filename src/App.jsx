@@ -5,29 +5,27 @@ import Home from "./pages/Home/page";
 import MainLayout from "./Layout/MainLayout";
 import OtherLayout from "./Layout/OtherLayout";
 import Login from "./pages/Login/page";
-// import Login from "./pages/Login/login";
-
 import SignUp from "./pages/SignUp/page";
-// import SignUp from "./pages/SignUp/FinalSignup"
 import Profile from "./pages/Profile/page";
-// import AllBlogs from "./pages/All Blogs/page";
-import AddBlog from "./componments/BlogCard/createblog";
 import Blog from "./componments/BlogCard/Blog";
+import AddBlog from "./componments/BlogCard/createblog";
+import AllClubs from "./pages/Clubs/allclubs";
+import ClubPage from "./pages/Clubs/clubpage";
 
 import DashboardProfile from "./componments/Profile/DashboardProfile";
 import Favorites from "./componments/Profile/Favorites";
 import LikedBlogs from "./componments/Profile/LikedBlogs";
+
+
 import Cookies from "universal-cookie";
 
 
 const App = () => {
   const cookies = new Cookies();
   const [logined, setLogined] = useState(false);
-  const [callCount, setCallCount] = useState(0);
   const [token, setToken] = useState(cookies.get("authToken"));
-  const [user, setUser] = useState({
-    isAdmin: false,
-  });
+  const [user, setUser] = useState({ isAdmin: false });
+
   return (
     <Router>
       <Routes>
@@ -35,6 +33,9 @@ const App = () => {
           <Route index element={<Home logined={logined} />} />
           <Route path="/all-blogs" element={<Blog />} />
           <Route path="/new-blog" element={<AddBlog />} />
+          <Route path="/clubs" element={<AllClubs />} />
+          <Route path="/clubs/:clubSlug" element={<ClubPage />} /> 
+
 
           <Route path="/profile" element={<Profile />}>
             <Route index element={<DashboardProfile />} />
