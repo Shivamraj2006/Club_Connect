@@ -5,7 +5,6 @@ import {
   register,
   login,
   resetPassword,
-  newuserCreated,
   savedPosts,
   likedPosts,
   addComment,
@@ -19,9 +18,8 @@ router.get("/myblogs", authenticateLogin, myblogs);
 router.post("/register", register);
 router.post("/login", login);
 router.post("/resetPassword", resetPassword);
-router.post('/clerk-webhook', newuserCreated);
-router.post('/save-post', savedPosts);
-router.post('/like-post', likedPosts);
+router.get('/save-post', savedPosts);
+router.get('/like-post', likedPosts);
 router.post('/add-comment',addComment );
 
 export default router;

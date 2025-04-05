@@ -8,3 +8,4 @@ const clubAdminSchema = new mongoose.Schema({
 const ClubAdmin = mongoose.model("ClubAdmin", clubAdminSchema);
 
 export { ClubAdmin };
+
