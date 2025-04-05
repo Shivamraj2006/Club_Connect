@@ -18,6 +18,7 @@ import DashboardProfile from "./componments/Profile/DashboardProfile";
 import Favorites from "./componments/Profile/Favorites";
 import LikedBlogs from "./componments/Profile/LikedBlogs";
 import Cookies from "universal-cookie";
+import LogoutPage from "./pages/SignUp/Signout";
 
 
 const App = () => {
@@ -46,6 +47,8 @@ const App = () => {
         <Route element={<OtherLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/logout" element={<LogoutPage />} />
+
         </Route>
       </Routes>
     </Router>

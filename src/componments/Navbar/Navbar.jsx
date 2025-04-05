@@ -123,7 +123,7 @@
 
 // export default Navbar;
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { VscThreeBars } from "react-icons/vsc";
 import { RxCross2 } from "react-icons/rx";
@@ -132,7 +132,7 @@ import { useClubs } from "../Context/ClubContext";
 
 const Navbar = ({ logined, isOpen, setIsOpen }) => {
   const { signOut } = useClerk();
-  const { user } = useUser();
+  const { isSignedIn } = useUser();
   const navigate = useNavigate();
   const sidebarRef = useRef(null);
   const [showClubs, setShowClubs] = useState(false);
@@ -140,10 +140,26 @@ const Navbar = ({ logined, isOpen, setIsOpen }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchClubs = async () => {
+      try {
+        const res = await fetch("http://localhost:5174/clubs/getClubs");
+        const data = await res.json();
+        setClubs(data);
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClubs();
+  }, []);
 
   const handleSignOut = async () => {
     await signOut();
-    navigate("/sign-in");
+    navigate("/s");
     setIsOpen(false);
   };
 
@@ -206,7 +222,7 @@ const Navbar = ({ logined, isOpen, setIsOpen }) => {
               </Link>
             )}
 
-            <div className="relative">
+            {/* <div className="relative">
               <button
                 onClick={() => setShowClubs(!showClubs)}
                 className="flex items-center px-3 py-2 text-gray-700 hover:text-gray-900"
@@ -229,24 +245,7 @@ const Navbar = ({ logined, isOpen, setIsOpen }) => {
               </button>
 
 
-              {/* {showClubs && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                  {clubsList.map((item, i) => (
-                    <Link
-                      to={item.to}
-                      key={i}
-                      className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                      onClick={() => {
-                        setIsOpen(false);
-                        setShowClubs(false);
-                      }}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              )} */}
-                            {showClubs && (
+              {showClubs && (
                 <div className="ml-4 mt-1 space-y-1">
                   {loading ? (
                     // <div className="p-2 text-gray-500">Loading clubs...</div>
@@ -283,11 +282,58 @@ const Navbar = ({ logined, isOpen, setIsOpen }) => {
                   )}
                   </div>
               )}
+            </div>*/}
+            <div className="relative">
+              <button
+                onClick={() => setShowClubs(!showClubs)}
+                className="flex items-center px-3 py-2 text-gray-700 hover:text-gray-900"
+              >
+                Clubs
+                <svg
+                  className={`ml-1 h-4 w-4 transition-transform ${
+                    showClubs ? "rotate-180" : ""
+                  }`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+
+              {showClubs && (
+                <div className="ml-4 mt-1 space-y-1 absolute bg-white border rounded shadow-md z-10 w-48">
+                  {loading ? (
+                    <div className="p-2 text-gray-500">Loading clubs...</div>
+                  ) : error ? (
+                    <div className="p-2 text-red-500">Error loading clubs</div>
+                  ) : clubs.length > 0 ? (
+                    clubs.map((club) => (
+                      <Link
+                        to={`/clubs/clubInfo/:${club.clubID}`} 
+                        key={club.clubID}
+                        className="block p-2 hover:bg-gray-100 rounded transition-all"
+                        onClick={() => {
+                          setIsOpen(false);
+                          setShowClubs(false);
+                        }}
+                      >
+                        {club.clubName}
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="p-2 text-gray-500">No clubs available</div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
-
           <div className="mt-auto space-y-4 pb-8">
-            {!logined ? (
+            {!isSignedIn ? (
               <>
                 <Link
                   to="/login"
