@@ -1,6 +1,6 @@
 import express from "express";
 import { commentBlog } from "../controllers/commentController.js";
-import { authenticateLogin } from "../middlewares/authMiddleware.js";
+import { authenticateLogin } from "../middlewares/authenticateLogin.js";
 
 const router = express.Router();
 
