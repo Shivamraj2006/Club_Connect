@@ -4,11 +4,6 @@ import { Link } from "react-router-dom";
 const Categories = () => {
   const cat = [
     {
-      name: "Interviews",
-      to: "/interviews",
-      bg: "bg-green-200",
-    },
-    {
       name: "Academics",
       to: "/academics",
       bg: "bg-orange-200",
@@ -17,11 +12,6 @@ const Categories = () => {
       name: "Internships",
       to: "/internships",
       bg: "bg-indigo-200",
-    },
-    {
-      name: "Guides",
-      to: "/guides",
-      bg: "bg-pink-200",
     },
   ];
   return (

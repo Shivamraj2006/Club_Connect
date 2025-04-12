@@ -3,7 +3,7 @@ import { Club } from "../models/clubModel.js";
 export const getAllClubs = async (req, res)=>{
     try{
         const clubs= await Club.find({}, "clubName");
-        res.status(200).json("clubs");
+        res.status(200).json(clubs);
     } catch(error) {
 
         res.status(500).json({message: "Internal Server Error"});
